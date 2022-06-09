@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="min-vh-100 d-flex align-items-center">
+    <div class="container z-2">
+        <div class="row justify-content-center text-center">
+            <div class="col-lg-8 col-xl-8">
+                <div class="card bg-primary shadow-soft border-light py-5 text-center">
+                    <h1 class="display-2 mb-3">Emotify</h1>
+                    <p class="lead px-md-6 mb-5 text-justify">Emotify is an undergraduate AI Thesis project that
+                        utilizes the 7 cardinal emotions and the YOLOv4 to generate a Spotify playlist based on the
+                        detected users' facial emotion. This study aims to recommend suggested playlist to the user to
+                        help them alleviate their current emotion.</p>
+                    <div class="d-flex justify-content-center mb-3">
+                        <a href="{{ auth_url }}">
+                            <button class="btn btn-lg btn-pill animate-down-3" type="button" data-toggle="tooltip"
+                                data-placement="right"
+                                title="This will prompt you to sign in using your Spotify account">
+                                Sign in with Spotify
+                                <span class="ml-1 text-success"><span class="fab fa-spotify"></span></span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

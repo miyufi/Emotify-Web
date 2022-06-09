@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="min-vh-100 d-flex align-items-md-center">
+    <div class="container z-2">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-8">
+                <div class="profile-card">
+                    <div class="card bg-primary shadow-soft border-light">
+                        <div style="position: absolute; right: 0;">
+                            <a href="{{ url_for('sign_out')}}">
+                                <button class="btn btn-primary text-danger m-3" type="button">Sign out</button>
+                            </a>
+                        </div>
+                        <div
+                            class="profile-image bg-primary shadow-inset border border-light rounded-circle p-3 ml-3 mt-n5">
+                            <img src="{{ dp }}" class="card-img-top rounded-circle">
+                        </div>
+
+                        <div class="card-body">
+                            <h3 class="h5 mb-2">{{ name }}</h3>
+                            <span class="h6 font-weight-normal text-gray mb-3">Your current detected emotion is:
+                                <strong>{{ emo }}</strong>. <a class="btn btn-primary"
+                                    href="{{ url_for('detect') }}">Recalibrate
+                                    emotion?</a></span>
+                            <hr>
+                            <p class="card-text">Your recommended playlist category is:
+                                <strong>{{ category }}</strong>. <a class="btn btn-primary"
+                                    href="{{ url_for('index') }}">Shuffle playlist?</a>
+                            </p>
+                            <div class="row">
+                                <div class="col-xl-4">
+                                    <!-- Tab Nav -->
+                                    <ul class="nav nav-pills nav-fill flex-column vertical-tab" id="tab12"
+                                        role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" data-toggle="tab" href="#tab-14" role="tab"
+                                                aria-controls="tab-14" aria-selected="true">{{ playlists[0][0] }}</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#tab-15" role="tab"
+                                                aria-controls="tab-15" aria-selected="false">{{ playlists [1][0]}}</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#tab-16" role="tab"
+                                                aria-controls="tab-16" aria-selected="false">{{ playlists [2][0] }}</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#tab-17" role="tab"
+                                                aria-controls="tab-17" aria-selected="false">{{ playlists [3][0]}}</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" data-toggle="tab" href="#tab-18" role="tab"
+                                                aria-controls="tab-18" aria-selected="false">{{ playlists [4][0] }}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-xl-8 d-flex align-content-center justify-content-center flex-wrap">
+                                    <div class="card shadow-inset bg-primary border-light p-3 rounded flex-fill">
+                                        <div class="card-body p-0">
+                                            <div class="tab-content" id="tabcontent">
+                                                <div class="tab-pane fade show active" id="tab-14" role="tabpanel"
+                                                    aria-labelledby="tab-14">
+                                                    <iframe
+                                                        src="https://open.spotify.com/embed/playlist/{{ playlists[0][1] }}?utm_source=generator"
+                                                        width="100%" height="260px" frameBorder="0" allowfullscreen=""
+                                                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                                                </div>
+                                                <div class="tab-pane fade" id="tab-15" role="tabpanel"
+                                                    aria-labelledby="tab-15">
+                                                    <iframe
+                                                        src="https://open.spotify.com/embed/playlist/{{ playlists[1][1] }}?utm_source=generator"
+                                                        width="100%" height="260px" frameBorder="0" allowfullscreen=""
+                                                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                                                </div>
+                                                <div class="tab-pane fade" id="tab-16" role="tabpanel"
+                                                    aria-labelledby="tab-16">
+                                                    <iframe
+                                                        src="https://open.spotify.com/embed/playlist/{{ playlists[2][1] }}?utm_source=generator"
+                                                        width="100%" height="260px" frameBorder="0" allowfullscreen=""
+                                                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                                                </div>
+                                                <div class="tab-pane fade" id="tab-17" role="tabpanel"
+                                                    aria-labelledby="tab-17">
+                                                    <iframe
+                                                        src="https://open.spotify.com/embed/playlist/{{ playlists[3][1] }}?utm_source=generator"
+                                                        width="100%" height="260px" frameBorder="0" allowfullscreen=""
+                                                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                                                </div>
+                                                <div class="tab-pane fade" id="tab-18" role="tabpanel"
+                                                    aria-labelledby="tab-18">
+                                                    <iframe
+                                                        src="https://open.spotify.com/embed/playlist/{{ playlists[4][1] }}?utm_source=generator"
+                                                        width="100%" height="260px" frameBorder="0" allowfullscreen=""
+                                                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <center>
+            <button type="button" class="btn btn-primary mt-3" data-toggle="modal" data-target="#modal-survey">Please
+                answer this survey before signing out. Thank you!</button>
+        </center>
+
+
+    </div>
+</section>
+
+<div class="modal fade" id="modal-survey" tabindex="-1" role="dialog" aria-labelledby="modal-survey" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content shadow-soft">
+            <div class="modal-header">
+                <span class="lead mb-0">Emotify Research Survey</span>
+                <button type="button" class="close ml-auto" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body px-6">
+                <div>
+                    <iframe
+                        src="https://docs.google.com/forms/d/e/1FAIpQLScO4ZcLAsAVc6zq0LtRwYKAYRd0WU24szRV6Bwmb2cnWXRcHQ/viewform?embedded=true"
+                        width="640" height="790" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="min-vh-100 d-flex align-items-center">
+    <div class="container py-5">
+        <div class="row align-items-center justify-content-center justify-content-lg-between">
+            <div class="col-12 col-sm-9 col-md-8 col-lg-5 mb-5 mb-lg-0"><img class="img-fluid"
+                    src="{{ url_for('static', filename='assets/img/illustrations-maintenance.svg') }}"
+                    alt="boy illustration"></div>
+            <div class="col-sm-12 col-lg-6">
+                <div class="text-center text-lg-left">
+                    <h4 class="mt-4 text-gray">woof!</h4>
+                    <h1 class="display-3">You are currently not registered to have access with this app.</h1>
+                    <p class="lead my-4">Sorry for the inconvenience, please let the creators know if this is a mistake.
+                    </p>
+                    <a class="btn btn-primary text-danger" href="{{ url_for('sign_out')}}">Sign out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

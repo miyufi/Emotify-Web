@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="container" hidden>
+    <video autoplay playsinline id="videoElement" hidden></video>
+    <canvas id="canvas" width="400" height="300" hidden></canvas>
+</div>
+<section class="min-vh-100 d-flex align-items-center">
+    <div class="container z-2">
+        <div class="row justify-content-center text-center">
+            <div class="col-12 col-md-10">
+                <div class="card bg-primary shadow-soft border-light p-2 p-md-3">
+                    <div class="video card-header rounded pb-0">
+                        <img id="photo" class="card-img-top rounded" style="width: 100%; height: auto">
+                    </div>
+                    <div class="card-body py-4">
+                        <h3 class="h1 my-4">Please face and look at the camera.</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    #video {
+        transform: rotateY(180deg);
+        -webkit-transform: rotateY(180deg);
+        -moz-transform: rotateY(180deg);
+
+    }
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.0/socket.io.js'></script>
+<script type="text/javascript" charset="utf-8">
+
+    var socket = io.connect(window.location.protocol + '//' + document.domain + ':' + location.port);
+    socket.on('connect', function () {
+        console.log("Connected...!", socket.connected)
+    });
+
+
+    var canvas = document.getElementById('canvas');
+    var context = canvas.getContext('2d');
+    const video = document.querySelector("#videoElement");
+
+    video.width = 400;
+    video.height = 300;
+
+
+    if (navigator.mediaDevices.getUserMedia) {
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(function (stream) {
+                video.srcObject = stream;
+                video.play();
+            })
+            .catch(function (err0r) {
+
+            });
+    }
+
+    const FPS = 6;
+    setInterval(() => {
+        width = video.width;
+        height = video.height;
+        context.drawImage(video, 0, 0, width, height);
+        var data = canvas.toDataURL('image/jpeg', 0.5);
+        context.clearRect(0, 0, width, height);
+        socket.emit('image', data);
+    }, 1000 / FPS);
+
+    socket.on('response_back', function (image) {
+        photo.setAttribute('src', image);
+
+    });
+
+    socket.on('redirect', function (data) {
+        window.location = data.url;
+    });
+
+</script>
+{% endblock %}
