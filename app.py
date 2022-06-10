@@ -23,9 +23,9 @@ MODEL = cv2.dnn.readNet(
 
 count = 0
 
-os.environ["SPOTIPY_CLIENT_ID"] = "INSERT CLIENT ID HERE"
-os.environ["SPOTIPY_CLIENT_SECRET"] = "INSERT CLIENT SECRET HERE"
-os.environ["SPOTIPY_REDIRECT_URI"] = "INSERT REDIRECT URI HERE"
+os.environ["SPOTIPY_CLIENT_ID"] = "422d3c4bafca45dca6bc25c771adfd0b"
+os.environ["SPOTIPY_CLIENT_SECRET"] = "8fa3b252caae42b48b47fb794324507d"
+os.environ["SPOTIPY_REDIRECT_URI"] = "https://www.emotify.online"
 
 Payload.max_decode_packets = 2048
 
@@ -188,7 +188,7 @@ def image(data_image):
     frame = (readb64(data_image))
 
     count += 1
-    if count > 50 and session['emotion'] != "No label":
+    if count > 50 and session.get('emotion') != "No label":
         count = 0
         emit('redirect', {'url': url_for('index')})
         time.sleep(5)
@@ -199,7 +199,6 @@ def image(data_image):
                 'percent'] = detectObj.lbl, detectObj.x, detectObj.y, detectObj.w, detectObj.h, detectObj.clr, detectObj.percent
         except:
             pass
-        print(str(session['emotion']))
         if session.get('emotion') != "No label":
             frame = bbox(frame)
 
@@ -209,7 +208,6 @@ def image(data_image):
                 frame = bbox(frame)
         except:
             pass
-    print(count)
 
     imgencode = cv2.imencode('.jpeg', frame, [cv2.IMWRITE_JPEG_QUALITY, 40])[1]
 
